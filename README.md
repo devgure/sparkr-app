@@ -11,6 +11,16 @@ docker system prune -a
 docker pull python:3.9-slim
 
 ////////////////////////////
+ Verification Steps
+  1. Check Docker status
+docker info
+
+# 2. List images
+docker images | grep python
+
+# 3. Build and run
+docker-compose build ai-service
+docker-compose up ai-service
 
 
 
@@ -321,6 +331,7 @@ The application will be available at:
 Web App: http://localhost:3002
 Admin Panel: http://localhost:3001
 API Docs: http://localhost:3000/api-docs
+
 
 
 
