@@ -34,13 +34,26 @@ services:
       - /app/node_modules
 
   ai-service:
-    build: ./ai-service
-    ports:
-      - "8000:8000"
-    depends_on:
-      - backend
-    volumes:
-      - ./ai-service:/app
+  build: 
+    context: ./ai-service
+    dockerfile: Dockerfile
+  ports:
+    - "8000:8000"
+  environment:
+    - MODEL_PATH=/app/model/compatibility_model.pkl
+    - PYTHONUNBUFFERED=1
+  depends_on:
+    backend:
+      condition: service_healthy
+  volumes:
+    - ./ai-service:/app
+    - ./ai-service/model:/app/model
+  restart: unless-stopped
+  healthcheck:
+    test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+    interval: 30s
+    timeout: 10s
+    retries: 3
 
   web:
     build: ./web
@@ -57,4 +70,5 @@ services:
       - backend
 
 volumes:
+
   postgres_data:
