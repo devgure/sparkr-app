@@ -1,0 +1,85 @@
+
+## 11. OpenAPI Specification
+
+### openapi.yaml
+```yaml
+openapi: 3.0.0
+info:
+  title: Sparkr API
+  version: 1.0.0
+  description: Dating App Backend
+servers:
+  - url: https://api.sparkr.app/v1
+
+paths:
+  /auth/login:
+    post:
+      summary: User login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+
+  /users/recommendations:
+    get:
+      summary: Get AI-powered matches
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+  /webhook/stripe:
+    post:
+      summary: Stripe Webhook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Webhook processed
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id: { type: string }
+        name: { type: string }
+        age: { type: integer }
+        bio: { type: string }
+        photos: 
+          type: array
+          items: { type: string }
+  
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
