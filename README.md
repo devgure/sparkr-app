@@ -1,7 +1,45 @@
 # etincell
 peer to peer marketaplce matching service 
 
+docker run hello-world
 
+# Clear Docker cache and retry
+docker builder prune --all
+docker system prune -a
+
+# Try pulling the image manually
+docker pull python:3.9-slim
+
+////////////////////////////
+
+
+
+
+
+
+8. Quick Fix Commands
+
+# Reset Docker and retry
+sudo systemctl restart docker
+docker system prune -a --volumes
+docker builder prune --all
+
+
+8. Quick Fix Commands
+
+
+# Pull images separately
+docker pull python:3.9-slim
+docker pull node:18-alpine
+docker pull postgres:14
+docker pull redis:alpine
+
+# Then start your app
+docker-compose up --build
+
+
+# Then start your app
+docker-compose up --build
 
 
 
@@ -283,6 +321,7 @@ The application will be available at:
 Web App: http://localhost:3002
 Admin Panel: http://localhost:3001
 API Docs: http://localhost:3000/api-docs
+
 
 
 
